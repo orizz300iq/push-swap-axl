@@ -3,6 +3,8 @@ package main
 import (
 	"fmt"
 	"math/rand"
+	"strconv"
+	"strings"
 )
 
 type Piles struct {
@@ -199,4 +201,21 @@ func (p *Piles) verif(taille int) {
 		fmt.Println("Nombre d'opérations :", len(p.operations))
 
 	}
+}
+
+func lireNombres(args []string) ([]int, error) {
+	tab := []int{}
+	elements := []string{}
+	for _, arg := range args {
+		elements = append(elements, strings.Fields(arg)...)
+	}
+	for _, elem := range elements {
+		nombre, err := strconv.Atoi(elem)
+		if err != nil {
+			return nil, fmt.Errorf("%q n'est pas un nombre entier", elem)
+		} else {
+			tab = append(tab, nombre)
+		}
+	}
+	return tab, nil
 }

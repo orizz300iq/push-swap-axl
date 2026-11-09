@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"math/rand"
 	"strconv"
 	"strings"
 )
@@ -210,26 +209,6 @@ func (p *Piles) trierEfficace() {
 	}
 	for len(p.b) > 0 {
 		p.pa()
-	}
-}
-
-func genererPileAleatoire(taille int) []int {
-	slice := make([]int, taille)
-	for i := 0; i < taille; i++ {
-		slice[i] = rand.Intn(100) // Nombres aléatoires entre 0 et 999
-	}
-	return slice
-}
-
-func (p *Piles) verif(taille int) {
-	p.a = genererPileAleatoire(taille)
-	p.afficher()
-	p.trierEfficace()
-	if p.aEstTriee() {
-		fmt.Println(p.a)
-		fmt.Println(p.operations)
-		fmt.Println("Nombre d'opérations :", len(p.operations))
-
 	}
 }
 

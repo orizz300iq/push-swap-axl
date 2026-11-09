@@ -11,7 +11,7 @@ func main() {
 	}
 	liste, err := lireNombres(os.Args[1:])
 	if err != nil {
-		fmt.Fprintln(os.Stderr, "Error: arguments invalides")
+		fmt.Fprintln(os.Stderr, "Error:", err)
 		os.Exit(1)
 	}
 

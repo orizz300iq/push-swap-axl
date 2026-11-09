@@ -79,22 +79,6 @@ $ echo -e "rra\npb\nsa\nrra\npa" | ./checker "3 2 1 0"
 OK
 ```
 
-### Combinaison avec un Pipe
-
-Transmettez directement la sortie de `push-swap` dans `checker` pour valider le tri :
-
-```bash
-$ ARG="4 67 3 87 23"; ./push-swap "$ARG" | ./checker "$ARG"
-OK
-```
-
-Pour compter le nombre d'instructions générées par `push-swap` :
-
-```bash
-$ ARG="4 67 3 87 23"; ./push-swap "$ARG" | wc -l
-6
-```
-
 ## Gestion des Erreurs
 
 En cas d'erreur de saisie ou de formatage, les programmes écrivent `Error` suivi d'un retour à la ligne sur la **sortie d'erreur standard (`Stderr`)** et s'arrêtent avec un code de retour `1`.

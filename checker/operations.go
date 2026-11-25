@@ -122,7 +122,7 @@ func (p *Piles) aEstTriee() bool {
 func lireNombres(args []string) ([]int, error) {
 	tab := []int{}
 	elements := []string{}
-	dic := make(map[string]int)
+	dic := make(map[int]int)
 	for _, arg := range args {
 		elements = append(elements, strings.Fields(arg)...)
 	}
@@ -130,11 +130,11 @@ func lireNombres(args []string) ([]int, error) {
 		nombre, err := strconv.Atoi(elem)
 		if err != nil {
 			return nil, fmt.Errorf("%q n'est pas un nombre entier", elem)
-		} else if dic[elem] >= 1 {
+		} else if dic[nombre] >= 1 {
 			return nil, fmt.Errorf("%q est en double dans la liste donnée", elem)
 		} else {
 			tab = append(tab, nombre)
-			dic[elem] = 1
+			dic[nombre] = 1
 		}
 	}
 	return tab, nil

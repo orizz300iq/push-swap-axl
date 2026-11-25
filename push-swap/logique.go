@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"strconv"
 	"strings"
+	"sort"
 )
 
 type Piles struct {
@@ -202,13 +203,43 @@ func (p *Piles) trierEfficace() {
 	if p.aEstTriee() {
 		return
 	}
-	for len(p.a) > 0 {
-		posMin := p.positionDuMinimumA()
-		p.amenerAuSommet(posMin)
-		p.pb()
+	
+	n := len(p.a)
+	// chaque valeur est remplacée par son index, pour traiter les négatifs et les grands nombres
+	triee := make([]int, n)
+	copy(triee, p.a)
+	sort.Ints(triee)
+	rang := make(map[int]int, n)
+	for i, v := range triee {
+		rang[v] = i
 	}
-	for len(p.b) > 0 {
-		p.pa()
+	for i := range p.a {
+		p.a[i] = rang[p.a[i]]
+	}
+
+	// Nombre de bits nécessaires pour écrire le plus grand rang (n-1)
+	nbBits := 0
+	for (n-1)>>nbBits != 0 {
+		nbBits++
+	}
+
+	// Une passe par bit, du poids faible au poids fort
+	for bit := 0; bit < nbBits; bit++ {
+		for i := 0; i < n; i++ {
+			if (p.a[0]>>bit)&1 == 0 {
+				p.pb()
+			} else {
+				p.ra()
+			}
+		}
+		for len(p.b) > 0 {
+			p.pa()
+		}
+	}
+
+	// On remet les vraies valeurs à la place des rangs
+	for i := range p.a {
+		p.a[i] = triee[p.a[i]]
 	}
 }
 
